@@ -2,6 +2,14 @@ import { postModel } from "../posts/postModel.js"
 
 const posts = new postModel;
 export class commentModel {
+
+    constructor(userId,comment,id){
+        this._id = id;
+        this.userId = userId;
+        this.comment = comment;
+        this.commentAt = new Date().now();
+    }
+    
     allCommentById(id) {
         console.log(posts.getById(id).comments);
         const comments = posts.getById(id).Post.comments;

@@ -1,16 +1,17 @@
 import { likeModel } from "./likeModel.js";
+import {LikeReopsitory} from "./likeRepository.js"
 
-const likes = new likeModel();
+const likes = new LikeReopsitory();
 
 export class likeController{
-    likeByPost(req,res){
+    async likeByPost(req,res){
         const id = req.params.postId;
-        const data = likes.likeByPost(id);
+        const data = await likes.likeByPost(id);
         res.status(200).send(data);
     }
-    toggleStatus(req,res){
+    async toggleStatus(req,res){
         const id = req.params.postId;
-        const data = likes.toggleStatus(id);
+        const data =await likes.toggleStatus(id);
         res.status(200).send(data);
         }
 }

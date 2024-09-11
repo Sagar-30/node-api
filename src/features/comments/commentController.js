@@ -1,29 +1,30 @@
 import { commentModel } from "./commentModel.js";
+import {CommentRepository} from "./commentRepository.js"
 
-const comments = new commentModel();
+const comments = new CommentRepository();
 
 export class commentController{
-    commentById(req,res){
+   async commentById(req,res){
         const id = req.params.id;
-        const data = comments.allCommentById(id);
+        const data =await comments.allCommentById(id);
         res.status(200).send(data);
     }
-    addInId(req,res){
+   async addInId(req,res){
         const id = req.params.id;
         const {comment} = req.body;
         console.log(id,req.body);
-        const data = comments.addInId(id,comment);
+       
+        const data =await comments.addInId(id,req.body);
         res.status(200).send(data);
     }
-    deleteById(req,res){
+   async deleteById(req,res){
         const id = req.params.id;
-        const data = comments.deleteById(id);
+        const data =await comments.deleteById(id);
         res.status(200).send(data);
     }
-    updaeById(req,res){
+   async updaeById(req,res){
         const id = req.params.id;
-        const {comment} = req.body;
-        const data = comments.updaeById(id,req.body);
+        const data =await comments.updaeById(id,req.body);
         res.status(200).send(data);
     }
 }

@@ -1,44 +1,43 @@
-import { postModel } from "./postModel.js";
+import {PostRepository} from "./postRepository.js";
+const Repo = new PostRepository();
 
-const posts = new postModel();
 export class postController{
-    getAll(req,res){
-      const data = posts.getAll();
+   async getAll(req,res){
+      // const data = posts.getAll();
+      const data =await Repo.getAll();
       res.status(200).send(data);
     }
-    getById(req,res){
+    async getById(req,res){
         const id = req.params.id;
-        const data = posts.getById(id);
+        // const data = posts.getById(id);
+        const data =await Repo.getById(id);
         res.status(200).send(data);
     }
-    getByuserId(req,res){
+    async getByuserId(req,res){
         const id = req.id;
-        const data = posts.getByUserId(id);
+        const data =await Repo.getByUserId(id);
         res.status(200).send(data);
     }
-    delete(req,res){
-        const id = req.params.id;
-        const data = posts.delete(id);
-        res.status(200).send(data);
-    }
-    upload(req,res){
+    
+    async upload(req,res){
         const file = req.file;
         const url =`http://localhost:3000/uploads/${file.filename}`;
-        const data = posts.upload(req.body,url);
+        // const data = Repo.upload(req.body,url);
+        const data = await Repo.upload(req.body,url);
+        console.log(data);
         res.status(200).send(data);
     }
-    modify(req,res){
+   async modify(req,res){
         const postId = req.params.id;
         console.log("postId",postId);
         const file = req.file;
         const url =`http://localhost:3000/uploads/${file.filename}`;
-        const data = posts.modify(req.body,url,postId);
+        const data = await Repo.modify(req.body,url,postId);
         res.status(200).send(data);
     }
-    delete(req,res){
+    async delete(req,res){
         const id = req.params.id;
-        const data = posts.delete(id);
-        console.log(data);
+        const data =await Repo.delete(id);
         res.status(200).send(data);
     }
 }

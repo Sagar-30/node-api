@@ -14,8 +14,9 @@ export class userController {
         let output = await userRepo.signIn(email, password);
         console.log(output.message);
         if (output.message == "Login successfull") {
-            const id = output.userId;
-            const token = jwt.sign({ id: id, email: email }, "abxrtunsfdtsh", { expiresIn: '7d' });
+            // const id = output.userId.toString();
+            req.id = output.nwUser._id.toString();
+            const token = jwt.sign({ id: req.id, email: email }, "abxrtunsfdtsh", { expiresIn: '7d' });
             res.cookie("token", token, { maxAge: 2 * 24 * 60 * 60 * 1000 });
             const nwOutput = { success: true, user: output.nwUser }
             res.status(200).send(nwOutput);

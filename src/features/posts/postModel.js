@@ -1,4 +1,19 @@
 export class postModel {
+    constructor(imageUrl, caption, postedBy, likes, comments,id) {
+        this._id = id;
+        this.imageUrl = imageUrl;
+        this.caption = caption;
+        this.postedBy = postedBy;
+        this.postedAt = new Date().toString();
+        this.likes = likes;
+        this.comments = Array.isArray(comments) ? comments.map(comment => ({
+            id: comment.id,
+            user: comment.user,
+            comment: comment.comment,
+            commentedAt: new Date(comment.commentedAt)
+        })) : [];
+    }
+    
     getAll() {
         return { success: true, Post: postData };
     }
@@ -49,6 +64,7 @@ export class postModel {
         console.log(data);
         return { success: true, posts: postData };
     }
+    
     modify(data,url,postId) {
         const postIndex = postData.findIndex(i => i.id == postId);
         console.log(postId,postIndex);
