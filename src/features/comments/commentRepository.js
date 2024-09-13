@@ -8,8 +8,9 @@ export class CommentRepository {
     const db = getDB();
     const findUser =await db.collection("users").findOne({_id:new ObjectId(id)});
     if (findUser) {
-      const { user = "default", comment = "default Comment" } = data;
-      const newComment = new commentModel(user, comment);
+      console.log(id);
+      const { user , Comment } = data;
+      const newComment = new commentModel(id, Comment);
       await db.collection("comments").insertOne(newComment);
       return { success: true, comments: newComment };
     } else {

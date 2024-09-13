@@ -12,7 +12,7 @@ export class commentController{
    async addInId(req,res){
         const id = req.params.id;
         const {comment} = req.body;
-        console.log(id,req.body);
+        // console.log(id,req.body);
        
         const data =await comments.addInId(id,req.body);
         res.status(200).send(data);

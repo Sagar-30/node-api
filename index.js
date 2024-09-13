@@ -8,6 +8,9 @@ import commentRoutes from "./src/features/comments/commentRoutes.js";
 import likeRoutes from "./src/features/likes/likeRoutes.js";
 import { ApplicationError } from "./src/middlewares/errorHandeling.js";
 import connectToMongodb from "./src/config/mongodb.js";
+import productRoutes from "./src/features/products/productRoutes.js";
+import cartRoutes from "./src/features/cart/cartRoutes.js";
+import orderRoutes from "./src/features/order/orderRoutes.js";
 
 const server = express();
 
@@ -20,8 +23,11 @@ server.get("/",(req,res)=>{
 
 
 server.use("/api",userRoutes)
-server.use("/api/posts",jwtAuth,postRoutes);
 server.use("/api/comments",jwtAuth,commentRoutes);
+server.use("/api/products",jwtAuth,productRoutes);
+server.use("/api/order",jwtAuth,orderRoutes);
+server.use("/api/cart",jwtAuth,cartRoutes)
+server.use("/api/posts",jwtAuth,postRoutes);
 server.use("/api/likes",jwtAuth,likeRoutes);
 
 server.use((req,res)=>{
